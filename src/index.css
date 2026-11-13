@@ -1,0 +1,57 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap");
+@import "tailwindcss";
+@import "@heroui/styles";
+
+@theme {
+  --color-brand-bg: #f6f2ea;
+  --color-brand-ink: #11242d;
+  --color-brand-paper: #fffdf8;
+  --color-brand-border: #d8d3c7;
+  --color-brand-primary: #f0644c;
+  --color-brand-secondary: #4758e8;
+  --color-brand-lime: #b8eb41;
+  --color-brand-muted: #617078;
+  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, monospace;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply m-0 min-w-80 bg-brand-bg font-sans text-brand-ink antialiased;
+  }
+
+  a {
+    @apply text-inherit no-underline;
+  }
+
+  button,
+  input {
+    font: inherit;
+  }
+}
+
+@keyframes campus-marquee {
+  to {
+    transform: translateX(-40%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
