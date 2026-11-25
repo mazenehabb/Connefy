@@ -45,6 +45,12 @@
   }
 }
 
+@keyframes community-marquee {
+  to {
+    transform: translateX(-40%);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
 
   *,

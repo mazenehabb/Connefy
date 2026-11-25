@@ -6,7 +6,6 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { TailSpin } from "react-loader-spinner";
 import { signUpSchema, type SignUpFormValues } from "../schemas/signUpSchema";
-// import { fa } from "zod/v4/locales";
 
 const input = (hasError = false) =>
   `mt-1.5 w-full rounded-[10px] border bg-brand-paper px-3.5 py-2.5 text-[13px] outline-none transition placeholder:text-[#9ba3a3] focus:ring-3 ${
@@ -18,7 +17,7 @@ const logo =
   "inline-flex items-center gap-2.5 text-[21px] font-bold tracking-[-1.2px]";
 
 export default function SignUpPage() {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const { handleSubmit, register, formState, reset } =
     useForm<SignUpFormValues>({
       resolver: zodResolver(signUpSchema),
@@ -44,8 +43,8 @@ export default function SignUpPage() {
       );
       toast.success(data.message || "Account created successfully!");
       setTimeout(() => {
-        navigate("/login");
-      }, 2300);
+        navigate("/login", { replace: true });
+      }, 1600);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const message =
@@ -61,10 +60,9 @@ export default function SignUpPage() {
   return (
     <main className="grid min-h-screen bg-brand-bg lg:grid-cols-[minmax(0,1fr)_minmax(380px,.82fr)]">
       <BrandPanel
-        subtitle=" Your campus, in motion"
-        title="Make the place feel more like home."
-        description="Find communities you care about and the students who make ordinary
-          days unexpectedly good."
+        subtitle="Your community, in motion"
+        title="Make this place feel more like home."
+        description="Find communities you care about and the people who make ordinary days unexpectedly good."
       />
       <section className="flex min-h-screen items-center justify-center px-5 py-6 sm:px-7 lg:py-4">
         <div className="w-full max-w-102.5">
@@ -75,7 +73,7 @@ export default function SignUpPage() {
             connefy
           </Link>
           <span className="font-mono text-[11px] font-medium uppercase tracking-[.1em] text-brand-primary">
-            Join your campus
+            Join the community
           </span>
           <h2 className="mt-2 text-[34px] font-semibold leading-none tracking-[-.065em] sm:text-[39px]">
             Find your circle.
@@ -140,14 +138,14 @@ export default function SignUpPage() {
             </div>
             <div>
               <label className="text-xs font-bold" htmlFor="email">
-                University email
+                Email address
               </label>
               <input
                 {...register("email")}
                 className={input(Boolean(formState.errors.email))}
                 id="email"
                 autoComplete="email"
-                placeholder="you@university.edu"
+                placeholder="you@example.com"
                 aria-invalid={Boolean(formState.errors.email)}
                 aria-describedby={
                   formState.errors.email ? "email-error" : undefined

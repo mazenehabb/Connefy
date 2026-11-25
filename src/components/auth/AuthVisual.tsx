@@ -20,7 +20,7 @@ export default function AuthVisual() {
         viewBox="0 0 360 360"
         className="relative z-10 w-full"
         role="img"
-        aria-label="Network graph of connected students around the Connefy mark"
+        aria-label="Network graph of connected members around the Connefy mark"
       >
         {/* faint orbit for depth */}
         <circle
@@ -33,7 +33,7 @@ export default function AuthVisual() {
           strokeWidth="1"
         />
 
-        {/* connections from the center to each student node */}
+        {/* connections from the center to each member node */}
         {NODES.map((node, i) => (
           <line
             key={`spoke-${node.id}`}
@@ -84,7 +84,7 @@ export default function AuthVisual() {
           />
         ))}
 
-        {/* student nodes */}
+        {/* member nodes */}
         {NODES.map((node, i) => (
           <g
             key={node.id}

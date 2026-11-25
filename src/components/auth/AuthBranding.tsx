@@ -9,16 +9,16 @@ export default function AuthBranding() {
 
       <div className="mt-24 max-w-md">
         <p className="text-sm font-medium text-brand-cyan">
-          For students, by students
+          Built for genuine connection
         </p>
 
         <h1 className="mt-4 font-display text-[2.75rem] font-semibold leading-[1.1] tracking-[-0.02em] text-brand-text xl:text-[3.25rem]">
-          Find your people on campus.
+          Find your people, wherever you are.
         </h1>
 
         <p className="mt-5 max-w-sm text-[15px] leading-7 text-brand-muted">
-          Join clubs, trade notes, and keep up with the people worth knowing at
-          your university — all in one place.
+          Join conversations, share ideas, and keep up with the communities and
+          people that matter to you — all in one place.
         </p>
       </div>
 
@@ -35,7 +35,7 @@ export default function AuthBranding() {
         </div>
 
         <p className="text-sm text-brand-muted">
-          <span className="font-semibold text-brand-text">4,200+ students</span>{" "}
+          <span className="font-semibold text-brand-text">4,200+ members</span>{" "}
           already connected
         </p>
       </div>

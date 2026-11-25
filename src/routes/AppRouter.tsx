@@ -1,9 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "./../layouts/Layout";
-import Home from "../pages/Home";
 import LoginPage from "../pages/LoginPage";
-import Feed from "../pages/Feed";
 import SignUpPage from "../pages/SignUpPage";
+import HomePage from "../pages/HomePage";
+import FeedPage from "../pages/FeedPage";
+import ProtectedRoute from "../components/protected/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -12,11 +13,15 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />,
+        element: <HomePage />,
       },
       {
         path: "/feed",
-        element: <Feed />,
+        element: (
+          <ProtectedRoute>
+            <FeedPage />
+          </ProtectedRoute>
+        ),
       },
     ],
   },

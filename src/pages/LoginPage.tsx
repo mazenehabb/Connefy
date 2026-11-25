@@ -6,6 +6,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { TailSpin } from "react-loader-spinner";
 import { loginSchema, type LoginFormValues } from "../schemas/loginSchema";
+import { useContext } from "react";
+import { AuthContext } from "../contexts/AuthContext";
 
 const input = (hasError = false) =>
   `mt-1.5 w-full rounded-[10px] border bg-brand-paper px-3.5 py-2.5 text-[13px] outline-none transition placeholder:text-[#9ba3a3] focus:ring-3 ${
@@ -17,6 +19,14 @@ const logo =
   "inline-flex items-center gap-2.5 text-[30px] font-bold tracking-[-1.2px]";
 
 export default function LoginPage() {
+  const auth = useContext(AuthContext);
+  if (!auth) {
+    throw new Error(
+      "AuthContext is undefined. Make sure you are using AuthProvider.",
+    );
+  }
+  const { setToken, setUser } = auth;
+
   const navigate = useNavigate();
   const { handleSubmit, register, formState } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -25,11 +35,10 @@ export default function LoginPage() {
     defaultValues: {
       email: "",
       password: "",
-      rememberMe: false,
     },
   });
 
-  async function handleLogin({ email, password, rememberMe }: LoginFormValues) {
+  async function handleLogin({ email, password }: LoginFormValues) {
     if (formState.isSubmitting) return;
     try {
       const { data } = await axios.post(
@@ -37,17 +46,13 @@ export default function LoginPage() {
         { email, password },
       );
 
-      if (data.token) {
-        const storage = rememberMe ? localStorage : sessionStorage;
-        const otherStorage = rememberMe ? sessionStorage : localStorage;
-
-        otherStorage.removeItem("token");
-        storage.setItem("token", data.token);
-      }
+      setToken(data.data.token);
+      setUser(data.data.user);
+      console.log(data.data.token);
 
       toast.success(data.message || "Welcome back!");
       setTimeout(() => {
-        navigate("/");
+        navigate("/feed", { replace: true });
       }, 1000);
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -66,8 +71,7 @@ export default function LoginPage() {
       <BrandPanel
         subtitle="Good to see you again"
         title="Your people are already making plans."
-        description=" Pick up the conversation, find a new corner of campus, and stay close
-          to what matters."
+        description="Pick up the conversation, explore new communities, and stay close to what matters."
       />
       <section className="flex min-h-screen items-center justify-center px-5 py-6 sm:px-7">
         <div className="w-full max-w-102.5">
@@ -84,12 +88,12 @@ export default function LoginPage() {
             Back in the loop.
           </h2>
           <p className="mt-1 mb-5 text-sm leading-relaxed text-brand-muted">
-            Log in to see what your campus has been up to.
+            Log in to see what your community has been up to.
           </p>
           <form onSubmit={handleSubmit(handleLogin)}>
             <div className="mt-3">
               <label className="text-xs font-bold" htmlFor="email">
-                University email
+                Email address
               </label>
               <input
                 {...register("email")}
@@ -97,7 +101,7 @@ export default function LoginPage() {
                 id="email"
                 type="email"
                 autoComplete="email"
-                placeholder="you@university.edu"
+                placeholder="you@example.com"
                 aria-invalid={Boolean(formState.errors.email)}
                 aria-describedby={
                   formState.errors.email ? "login-email-error" : undefined
@@ -138,14 +142,6 @@ export default function LoginPage() {
               )}
             </div>
             <div className="my-3 flex items-center justify-between text-xs text-brand-muted">
-              <label className="flex items-center gap-2">
-                <input
-                  {...register("rememberMe")}
-                  className="accent-brand-primary"
-                  type="checkbox"
-                />{" "}
-                Remember me
-              </label>
               <a
                 className="font-bold text-brand-secondary"
                 href="#forgot-password"

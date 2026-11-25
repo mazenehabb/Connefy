@@ -1,12 +1,12 @@
 # Connefy
 
-Connefy is a social-media web application made for university students. It aims to help students discover campus communities, share updates, and stay connected with university life.
+Connefy is a modern social-media web application built for communities, creators, and everyday people. It aims to help people discover circles, share updates, and stay connected with what matters most.
 
 > This project is currently under active development.
 
 ## Current features
 
-- Responsive landing page and campus feed UI
+- Responsive landing page and community feed UI
 - Sign-up form connected to the Route API
 - Login form connected to the Route API
 - Client-side form validation with Zod and React Hook Form
@@ -59,7 +59,7 @@ Open the local URL shown in the terminal, usually `http://localhost:5173`.
 
 ## Project status
 
-The authentication flow and core interface are in place. Upcoming work will include completing the feed experience, profiles, posts, and additional campus interactions.
+The authentication flow and core interface are in place. Upcoming work will include completing the feed experience, profiles, posts, and additional community interactions.
 
 ## Author
 
